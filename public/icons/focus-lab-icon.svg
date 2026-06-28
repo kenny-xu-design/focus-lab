@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Focus Lab">
+  <rect width="512" height="512" rx="96" fill="#fff8eb"/>
+  <path d="M92 92h328v328H92z" fill="#fffdf6" stroke="#2b241c" stroke-width="18"/>
+  <path d="M150 92v328" stroke="#d45a2e" stroke-width="8" opacity=".7"/>
+  <path d="M92 170h328M92 232h328M92 294h328M92 356h328" stroke="#49638d" stroke-width="5" opacity=".28"/>
+  <circle cx="286" cy="254" r="84" fill="#ffe2b2" stroke="#a94617" stroke-width="16"/>
+  <circle cx="286" cy="254" r="28" fill="#d95f22"/>
+  <path d="M218 254h136M286 186v136" stroke="#2b241c" stroke-width="12" stroke-linecap="round" opacity=".9"/>
+  <text x="256" y="448" text-anchor="middle" font-family="Segoe Print, Comic Sans MS, cursive" font-size="58" font-weight="700" fill="#a94617">FL</text>
+</svg>

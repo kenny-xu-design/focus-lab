@@ -1,0 +1,40 @@
+{
+  "name": "Focus Lab｜专注力训练工具箱",
+  "short_name": "Focus Lab",
+  "description": "面向学习、写作、设计与深度工作的专注力训练工具箱。",
+  "start_url": "/popup",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fff8eb",
+  "theme_color": "#fff8eb",
+  "categories": ["productivity", "education", "utilities"],
+  "icons": [
+    {
+      "src": "/icons/focus-lab-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "桌面启动器",
+      "short_name": "启动器",
+      "url": "/launcher",
+      "description": "打开六个核心训练入口"
+    },
+    {
+      "name": "弹窗启动",
+      "short_name": "弹窗",
+      "url": "/popup",
+      "description": "打开紧凑弹窗训练入口"
+    },
+    {
+      "name": "训练记录",
+      "short_name": "记录",
+      "url": "/records",
+      "description": "查看训练和布局记录"
+    }
+  ]
+}
