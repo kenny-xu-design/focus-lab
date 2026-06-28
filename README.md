@@ -110,18 +110,6 @@ scripts/
   start-focus-lab-popup.ps1
 ```
 
-## GitHub 上传建议
-
-建议将 `focus-lab` 作为独立仓库上传。不要提交 `node_modules`、`dist`、`.env` 或日志文件，这些已经在 `.gitignore` 中排除。
-
-```bash
-git init
-git add .
-git commit -m "Initial Focus Lab app"
-git branch -M main
-git remote add origin https://github.com/<your-name>/focus-lab.git
-git push -u origin main
-```
 
 ## 后续可扩展方向
 
