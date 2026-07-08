@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
+import DesktopTaskPage from './pages/DesktopTaskPage'
 import GamePlayPage from './pages/GamePlayPage'
 import GamesPage from './pages/GamesPage'
 import HomePage from './pages/HomePage'
@@ -10,11 +11,16 @@ import PopupPage from './pages/PopupPage'
 import RecordsPage from './pages/RecordsPage'
 import TrainingPage from './pages/TrainingPage'
 
+function isTauriRuntime() {
+  return typeof window !== 'undefined' && ('__TAURI__' in window || '__TAURI_INTERNALS__' in window)
+}
+
 export default function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={isTauriRuntime() ? <DesktopTaskPage /> : <HomePage />} />
+        <Route path="/desktop" element={<DesktopTaskPage />} />
         <Route path="/popup" element={<PopupPage />} />
         <Route path="/launcher" element={<LauncherPage />} />
         <Route path="/methods" element={<MethodsPage />} />

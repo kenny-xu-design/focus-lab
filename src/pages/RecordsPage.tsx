@@ -2,7 +2,25 @@ import { RotateCcw, Trash2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import RecordSummary from '../components/RecordSummary'
 import { useTrainingStore } from '../store/useTrainingStore'
+import type { TrainingRecord } from '../types/training'
 import { formatDateTime, formatDuration } from '../utils/date'
+
+type DistractionMarkRecord = {
+  elapsedSeconds: number
+  segmentLabel: string
+}
+
+const isDistractionMarkRecord = (value: unknown): value is DistractionMarkRecord => {
+  if (!value || typeof value !== 'object') return false
+
+  const mark = value as Partial<DistractionMarkRecord>
+  return typeof mark.elapsedSeconds === 'number' && typeof mark.segmentLabel === 'string'
+}
+
+const getDistractionMarks = (extra: TrainingRecord['extra']) => {
+  const marks = extra?.distractionMarks
+  return Array.isArray(marks) ? marks.filter(isDistractionMarkRecord) : []
+}
 
 export default function RecordsPage() {
   const records = useTrainingStore((state) => state.records)
@@ -90,13 +108,16 @@ export default function RecordsPage() {
           </div>
         ) : (
           <div className="record-list">
-            {records.map((record) => (
-              <article className="glass-card record-item" key={record.id}>
-                <div>
-                  <strong>{record.methodName}</strong>
-                  <span>{formatDateTime(record.date)}</span>
-                </div>
-                <dl>
+            {records.map((record) => {
+              const distractionMarks = getDistractionMarks(record.extra)
+
+              return (
+                <article className="glass-card record-item" key={record.id}>
+                  <div>
+                    <strong>{record.methodName}</strong>
+                    <span>{formatDateTime(record.date)}</span>
+                  </div>
+                  <dl>
                   <div>
                     <dt>用时</dt>
                     <dd>{formatDuration(record.durationSeconds)}</dd>
@@ -137,9 +158,22 @@ export default function RecordsPage() {
                       <dd>{record.note}</dd>
                     </div>
                   )}
-                </dl>
-              </article>
-            ))}
+                  </dl>
+                  {distractionMarks.length > 0 && (
+                    <ul className="result-list">
+                      {distractionMarks.map((mark, index) => (
+                        <li key={`${record.id}-${index}-${mark.elapsedSeconds}`}>
+                          <span>第 {index + 1} 次分心</span>
+                          <strong>
+                            {mark.segmentLabel} · {formatDuration(mark.elapsedSeconds)}
+                          </strong>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </article>
+              )
+            })}
           </div>
         )}
       </section>

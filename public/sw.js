@@ -1,4 +1,4 @@
-const CACHE_NAME = 'focus-lab-pwa-v1'
+const CACHE_NAME = 'focus-lab-pwa-v2'
 const APP_SHELL = ['/', '/popup', '/launcher', '/methods', '/records', '/manifest.webmanifest', '/icons/focus-lab-icon.svg']
 
 self.addEventListener('install', (event) => {

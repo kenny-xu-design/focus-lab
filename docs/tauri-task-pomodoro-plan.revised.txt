@@ -1,0 +1,518 @@
+当前项目：focus-lab
+
+本文档是对原始 pasted-text.txt 的流程评估与修订稿。
+目的：把项目路线调整为适合当前实际进度的执行方案。
+注意：本稿只用于方案审批，不代表已执行后续阶段。
+
+一、当前进度判断
+
+项目方向已经收敛为：
+PC 桌面端极简个人生产力工具，核心闭环是：
+前夜计划 → 次日执行 → 任务管理 → 任务启动番茄 → 胶囊浮窗专注 → 完成后记录与复盘。
+
+当前实际进度：
+
+1. 已在分支 feature/tauri-task-pomodoro 上工作。
+2. Vite + React 网站仍保留。
+3. Tauri 基础目录 src-tauri 已初始化。
+4. package.json 已加入 tauri:dev / tauri:build。
+5. 已新增统一生产力模型目录：
+   src/features/productivity/
+6. 已新增 Task / PomodoroSession / DistractionEvent / ProductivitySettings 等类型雏形。
+7. npm run build 已在 2026-07-08 复验通过。
+8. Rust/Cargo 已在 2026-07-08 复验可用：
+   rustc 1.96.1
+   cargo 1.96.1
+9. 当前 Tauri dev/build 的主要阻塞不是项目代码，也不再是 rustup 损坏，而是 Windows MSVC 链接器缺失：
+   cargo check 报错 linker `link.exe` not found。
+   需要安装 Visual Studio Build Tools 的 C++ 桌面开发工具链，或确认现有 MSVC Build Tools 已加入环境。
+
+因此，原文中的阶段 0、阶段 1、阶段 2 不应再被视为“从零开始执行”，而应改为：
+
+阶段 0：已完成，进入核对状态。
+阶段 1：Tauri 初始化已完成，但阶段 1B 需要从“Rust 修复”调整为“MSVC Build Tools 补齐与 Tauri 桌面窗口验收”。
+阶段 2：类型模型已初步完成，下一步应做模型审查与最小补齐，而不是重复创建。
+
+二、修改后的总体原则
+
+1. 保留现有网站功能、训练页、记录页、PWA 和路由结构。
+2. 桌面端是任务与番茄主入口；网站保留为工具箱、记录复盘和降级入口。
+3. 当前不再优先增强网站内番茄浮窗。
+4. 不做社交自习室、好友系统、排行榜、聊天室。
+5. 不做账号系统、云同步、WebDAV、微信小程序、Electron。
+6. 新功能必须按模块拆分，避免堆进单个 React 组件。
+7. 任务模型、番茄模型、存储模型优先抽象为可复用模块。
+8. 第一版只做本地数据，不接远程数据库。
+9. 每个阶段必须保留 npm run build 验证。
+10. Tauri 相关阶段必须明确区分：
+    - 前端构建是否通过
+    - Tauri CLI 是否可用
+    - Rust/Cargo 是否健康
+    - tauri:dev 是否能打开桌面窗口
+
+三、建议后的阶段安排
+
+阶段 0：项目盘点与分支确认（已完成，需记录）
+
+状态：已完成。
+
+保留验收内容：
+1. 当前分支应为 feature/tauri-task-pomodoro。
+2. 输出 Pomodoro 相关文件。
+3. 输出记录页和 localStorage 相关文件。
+4. 输出当前 localStorage key：
+   focus-lab-training-records
+5. npm run build 通过。
+
+后续不再重复执行阶段 0，除非分支或工作区被重置。
+
+阶段 1：Tauri 初始化（已完成基础，需补验收）
+
+状态：代码侧已完成基础初始化。
+
+已完成内容：
+1. 新增 src-tauri/。
+2. 新增 @tauri-apps/api。
+3. 新增 @tauri-apps/cli。
+4. 新增 tauri:dev / tauri:build scripts。
+5. Tauri devUrl 指向 Vite dev server。
+6. Tauri frontendDist 指向 dist。
+
+当前未完成验收：
+1. npm run tauri:dev 尚不能稳定启动。
+2. npm run tauri:build 尚不能稳定构建。
+
+原因：
+本机 Rust 工具链不健康，而不是 Tauri 配置本身已知错误。
+
+新增阶段 1B：Rust/Tauri 环境修复与桌面窗口验收
+
+目标：
+先把本机 Rust/Cargo/Tauri dev 环境修好，再进入功能开发。
+
+2026-07-08 复验结果：
+1. rustc --version 正常输出：rustc 1.96.1。
+2. cargo --version 正常输出：cargo 1.96.1。
+3. npm run build 正常通过。
+4. cargo check 未通过，原因是 Windows MSVC linker `link.exe` not found。
+5. 本机未检测到 Visual Studio Installer / Visual Studio Build Tools 常见安装目录。
+
+2026-07-08 继续处理结果：
+1. 已安装 Visual Studio Build Tools 2022。
+2. 已补齐 C++ 桌面开发相关工具链。
+3. 普通 PowerShell 中 cargo check 已通过。
+4. npm run build 已通过。
+5. npm run tauri:dev 已能启动 Vite dev server 和 Tauri 桌面进程。
+6. 发现并修复 Tauri 模板残留问题：
+   src-tauri/src/main.rs 原本调用 app_lib::run()，但 Cargo.toml 中库名是 focus_lab_lib。
+   已改为 focus_lab_lib::run()。
+
+当前判断：
+阶段 1B 的核心阻塞已经解除。
+当前已满足进入阶段 2B 的最低条件：Rust/Cargo 可用、MSVC linker 可用、cargo check 通过、npm run build 通过、tauri:dev 可启动桌面进程。
+
+要求：
+1. 检查 rustup show。
+2. 检查 rustc --version。
+3. 检查 cargo --version。
+4. 确认 MSVC `link.exe` 可用。
+5. 确认 cargo check 通过。
+6. 确认 npm run tauri:dev 能打开桌面窗口。
+7. 确认 npm run build 仍通过。
+
+建议修复方向：
+1. 已完成 Visual Studio Build Tools 安装。
+2. 已完成 cargo check 验收。
+3. 后续如遇普通终端构建失败，可重新打开 PowerShell 后再执行：
+   rustc --version
+   cargo --version
+   cargo check
+   npm run tauri:dev
+
+验收标准：
+1. rustc --version 正常输出。
+2. cargo --version 正常输出。
+3. cargo check 通过。
+4. npm run tauri:dev 可以启动桌面窗口。
+5. npm run build 通过。
+
+阶段 2：统一类型模型审查与补齐（已初步完成，需审查）
+
+状态：已初步完成，并已在 2026-07-08 完成阶段 2B 最小补齐。
+
+当前已有目录：
+src/features/productivity/
+  core/
+    date.ts
+    pomodoroMachine.ts
+    taskMigration.ts
+  storage/
+    productivityStorage.ts
+  types/
+    taskTypes.ts
+    pomodoroTypes.ts
+    settingsTypes.ts
+  index.ts
+
+下一步不应重复创建类型，而应做审查与补齐：
+
+1. 检查 Task 是否满足：
+   id
+   title
+   note
+   status
+   plannedForDate
+   createdAt
+   updatedAt
+   completedAt
+   startedAt
+   order
+   estimatedPomodoros
+   completedPomodoros
+   totalFocusMs
+   source
+
+2. 检查 PomodoroSession 是否满足：
+   id
+   taskId
+   taskTitleSnapshot
+   phase
+   status
+   focusDurationMs
+   breakDurationMs
+   phaseStartAt
+   phaseEndAt
+   pausedAt
+   remainingMsOnPause
+   startedAt
+   completedAt
+   distractionEvents
+
+3. 检查 DistractionEvent 是否满足：
+   id
+   sessionId
+   taskId
+   elapsedMs
+   phase
+   createdAt
+   note
+   tag
+
+4. 检查 ProductivitySettings 是否满足：
+   focusDurationMs
+   breakDurationMs
+   longBreakDurationMs
+   sessionsBeforeLongBreak
+   soundEnabled
+   notificationEnabled
+   alwaysOnTop
+   autoStartBreak
+   autoStartNextFocus
+   rolloverPolicy
+   capsuleModeOnStart
+   globalShortcut
+
+5. 检查是否需要补充未来同步预留字段：
+   syncVersion
+   deviceId
+   updatedByDevice
+   deletedAt
+
+2026-07-08 阶段 2B 处理结果：
+1. Task 已补齐 deletedAt 软删除字段。
+2. PomodoroSession 已补齐 deletedAt 软删除字段。
+3. DistractionEvent 已补齐 deletedAt 软删除字段。
+4. ProductivitySettings 已补齐 syncVersion / deviceId / updatedByDevice 预留字段。
+5. 未接入 UI，未改变现有网站番茄钟逻辑。
+6. npm run build 已通过。
+7. cargo check 已通过。
+
+建议调整：
+1. 不急于把现有网站 PomodoroTimer.tsx 迁移到新状态机。
+2. 先把 productivity 模型稳定下来。
+3. 再进入阶段 3 日切迁移测试。
+
+验收标准：
+1. 类型定义集中清晰。
+2. 不与旧 training.ts 冲突。
+3. npm run build 通过。
+4. cargo check 通过。
+
+阶段 3：日切迁移逻辑
+
+状态：已在 2026-07-08 完成第一轮最小实现。
+
+目标：
+实现并验证“前夜计划，次日执行”。
+
+当前已有 runDailyRollover 雏形时，应优先补：
+1. 明确输入数据结构。
+2. 明确 lastActiveDate 更新策略。
+3. 为 keep_active 增加 rolloverCount。
+4. 增加手动验证数据或最小单元测试。
+
+2026-07-08 阶段 3 处理结果：
+1. DailyRolloverSummary 已补充 previousDate / currentDate。
+2. DailyRolloverSummary 已补充 unchangedCount，便于核对未迁移任务数量。
+3. runDailyRollover 已支持传入 now，便于后续测试和可重复验证。
+4. runDailyRollover 已跳过 deletedAt 不为空的软删除任务。
+5. keep_active 策略已有 rolloverCount 累加。
+6. 已新增手动验证样例：
+   src/features/productivity/core/taskMigrationFixtures.ts
+7. 已从 productivity 统一出口导出 fixture。
+8. npm run build 已通过。
+9. cargo check 已通过。
+
+后续可选增强：
+1. 引入 Vitest 后，把 fixture 转成自动单元测试。
+2. 为 archive_unfinished 策略补充 archivedAt 或 completedAt 以外的审计字段。
+3. 在桌面 UI 接入前，增加一次 JSON 导入导出的手动验证。
+
+阶段 4：桌面主窗口任务界面
+
+状态：已在 2026-07-08 完成第一轮桌面主窗口雏形。
+
+原因：
+桌面主窗口依赖 Tauri dev 能打开窗口。如果 Rust/Tauri 环境未修复，容易无法验收。
+
+最小可用范围：
+1. 今日执行。
+2. 明日计划。
+3. 收集箱。
+4. 新增任务。
+5. 移动任务状态。
+6. 从任务启动番茄的入口占位。
+
+2026-07-08 阶段 4 处理结果：
+1. 已新增桌面任务工作台页面：
+   src/pages/DesktopTaskPage.tsx
+2. 已新增三栏结构：
+   今日执行 / 明日计划 / 收集箱
+3. 已支持新增任务，并可选择加入收集箱、明日计划或今日执行。
+4. 已支持任务状态移动：
+   开始任务 / 移到今日 / 移到明日 / 移回收集箱 / 完成 / 归档。
+5. 已使用 localStorage key：
+   focus-lab-productivity-data
+6. Tauri 运行在根路径时会优先显示桌面任务工作台；普通浏览器根路径仍保留网站首页。
+7. 已新增 /desktop 路由，方便网页环境手动验收。
+8. npm run build 已通过。
+9. cargo check 已通过。
+10. npm run tauri:dev 已能启动桌面进程。
+
+当前边界：
+1. 任务数据仍暂存在 localStorage，尚未落到 Tauri JSON 文件。
+2. “开始任务”目前只切换为 in_progress，尚未真正绑定番茄状态机。
+3. 托盘、全局快捷键、胶囊浮窗仍未开始。
+
+阶段 5：番茄核心状态机
+
+状态：已在 2026-07-08 完成第一轮最小接入。
+
+目标：
+让番茄 session 绑定 taskId，不再依赖网站 PomodoroTimer.tsx 内部状态作为核心数据源。
+
+2026-07-08 阶段 5 处理结果：
+1. 已扩展 productivity 番茄状态机：
+   src/features/productivity/core/pomodoroMachine.ts
+2. 已新增 createFocusSession，用于从 Task 创建绑定 taskId 的 focus session。
+3. 已新增 pauseSession / resumeSession / completeSession / cancelSession。
+4. 桌面任务工作台“开始任务”已改为：
+   - 将任务切换为 in_progress。
+   - 取消其他运行中或暂停中的 session。
+   - 创建新的 PomodoroSession。
+5. 桌面任务工作台顶部已新增当前番茄面板，显示：
+   - 当前任务标题。
+   - 当前阶段剩余时间。
+   - 暂停 / 继续 / 完成本轮。
+6. 完成本轮后，会把对应任务的 completedPomodoros 加 1，并累加 totalFocusMs。
+7. npm run build 已通过。
+8. cargo check 已通过。
+9. npm run tauri:dev 已能启动桌面进程。
+
+当前边界：
+1. 当前只接入 focus 阶段，break / long break 尚未进入 UI。
+2. 分心记录按钮尚未接入桌面工作台。
+3. 声音、系统通知、胶囊浮窗仍未开始。
+
+2026-07-08 阶段 5B 处理结果：
+1. PomodoroPhase 已扩展为：
+   focus / break / long_break
+2. PomodoroSession 已补充 longBreakDurationMs。
+3. 已新增 getSessionPhaseDurationMs。
+4. 已新增 startBreakPhase，用于在 focus 完成后进入短休息或长休息。
+5. 桌面任务工作台已支持：
+   - focus 完成后进入 break / long_break。
+   - 根据 autoStartBreak 决定休息是否自动开始。
+   - 休息阶段显示“短休息”或“长休息”。
+   - 休息完成后 session 才标记为 completed。
+6. npm run build 已通过。
+7. cargo check 已通过。
+8. npm run tauri:dev 已能启动桌面进程。
+
+当前新增边界：
+1. 休息结束后尚未根据 autoStartNextFocus 自动开启下一轮 focus。
+2. 倒计时到 0 后仍需要手动点击进入下一阶段，尚未自动推进。
+3. 声音提醒和系统通知尚未接入桌面工作台。
+
+2026-07-08 阶段 5C 处理结果：
+1. 桌面任务工作台已能检测 active session 倒计时归零。
+2. 倒计时归零后会显示 in-app 确认弹窗：
+   - focus 结束：提示“专注完成”，按钮为“进入休息”。
+   - break / long_break 结束：提示“休息完成”，按钮为“结束休息”。
+3. 已接入桌面工作台内的轻量 Web Audio 提示音。
+4. 提示音遵循 ProductivitySettings.soundEnabled。
+5. 为避免浏览器/ WebView 自动播放限制，开始任务和继续 session 时会尝试解锁 AudioContext。
+6. npm run build 已通过。
+7. cargo check 已通过。
+8. npm run tauri:dev 已能启动桌面进程。
+
+当前新增边界：
+1. 暂未接入系统级通知。
+2. 暂未接入托盘或胶囊浮窗。
+3. 倒计时归零后仍由用户确认进入下一阶段，没有自动点击推进。
+
+阶段 6：桌面胶囊浮窗
+
+建议延后到：
+1. Tauri dev 可用。
+2. 主窗口任务 UI 可用。
+3. 番茄状态机可用。
+
+不要继续增强网页内部浮窗。
+
+阶段 7：本地存储
+
+状态：已在 2026-07-08 完成第一轮 Tauri JSON 文件存储接入。
+
+第一版建议选择：
+本地 JSON 文件。
+
+暂不建议第一版直接上 SQLite。
+
+原因：
+1. 数据结构仍在快速变化。
+2. JSON 更方便调试、导入导出和人工检查。
+3. 后续可迁移到 SQLite。
+
+2026-07-08 阶段 7 处理结果：
+1. 已新增 Tauri command：
+   - load_productivity_data
+   - save_productivity_data
+2. JSON 文件存储位置使用 Tauri app_data_dir。
+3. 文件名：
+   productivity-data.json
+4. 桌面工作台在 Tauri 环境中优先读取 / 写入本地 JSON 文件。
+5. 浏览器环境继续保留 localStorage fallback，方便 /desktop 网页验收。
+6. localStorage key 仍保留：
+   focus-lab-productivity-data
+7. npm run build 已通过。
+8. cargo check 已通过。
+9. npm run tauri:dev 已能启动桌面进程。
+
+当前边界：
+1. 尚未提供 UI 按钮显示或打开 JSON 文件位置。
+2. 尚未实现导入 / 导出按钮。
+3. 尚未做 JSON schema 迁移版本升级，只验证 schemaVersion 为 1。
+
+阶段 8：桌面体验增强
+
+系统托盘、全局快捷键、桌面通知、声音提醒、置顶设置放在基础闭环跑通之后。
+
+阶段 9：记录页与复盘
+
+保留旧记录兼容。
+新增生产力记录时，应让网站记录页未来可读取同一 ProductivityData。
+
+阶段 10：网站角色调整方案
+
+暂时只输出方案，不实施大改。
+
+建议：
+1. 保留原网站番茄页面作为 localStorage 降级模式。
+2. 桌面端稳定后，网站番茄页可改为“打开桌面端 / 查看桌面状态 / 复盘记录”的入口。
+3. 不删除 PWA。
+4. 不删除现有记录页。
+
+四、当前最适合的下一步
+
+建议顺序：
+
+1. 先做阶段 1B：修复 Rust/Tauri 环境。
+2. 然后做阶段 2B：审查并补齐 productivity 类型模型。
+3. 然后做阶段 3：日切迁移逻辑和测试数据。
+4. 再做阶段 4：桌面主窗口任务界面。
+
+不建议现在直接做：
+1. 胶囊浮窗。
+2. 托盘。
+3. 全局快捷键。
+4. 记录页大改。
+5. 本地 HTTP API。
+6. SQLite。
+7. 同步相关功能。
+
+五、需要用户批准的修改要点
+
+用户已确认以下要点，同意按本方案继续执行。
+
+批准点 1：
+是否接受新增“阶段 1B：Rust/Tauri 环境修复与桌面窗口验收”？
+
+建议：接受。
+理由：当前 Tauri 代码已初始化，但不能验收桌面窗口，继续做 UI 会堆积不可验证风险。
+
+批准点 2：
+是否接受“阶段 0、阶段 1、阶段 2 不再从零重复执行，而是转为已完成/待验收/待审查状态”？
+
+建议：接受。
+理由：当前仓库已经有相关代码，重复执行会制造重复文件和冲突。
+
+批准点 3：
+是否接受第一版本地存储优先使用 JSON 文件，而不是 SQLite？
+
+建议：接受。
+理由：当前数据模型仍在变化，JSON 更利于调试和迁移；SQLite 可作为后续阶段。
+
+批准点 4：
+是否接受暂时保留网站 Pomodoro 页面，但不再优先增强网页内浮窗？
+
+建议：接受。
+理由：保留降级能力，同时把主要开发火力转到桌面端任务番茄闭环。
+
+批准点 5：
+是否接受阶段 3 前先补齐 productivity 类型中的同步预留字段和软删除字段？
+
+建议：部分接受。
+建议先保留 syncVersion / deviceId / updatedByDevice；deletedAt 是否加入需要确认。
+
+批准点 6：
+是否接受阶段 4 的桌面主窗口先做极简三栏：今日执行 / 明日计划 / 收集箱？
+
+建议：接受。
+理由：最贴合“前夜计划，次日执行”的闭环，且 UI 复杂度可控。
+
+批准点 7：
+是否接受在 Rust 工具链修复前，不继续推进 Tauri 窗口拆分、托盘、胶囊浮窗？
+
+建议：接受。
+理由：这些都依赖 Tauri dev 可运行，否则无法可靠验收。
+
+六、修订后的近期执行口径
+
+如果以上批准点通过，下一轮执行应只做：
+
+1. 阶段 1B：
+   修复 Rust/Tauri 环境，直到 rustc / cargo / tauri:dev 可用。
+
+2. 阶段 2B：
+   审查并补齐 productivity 类型模型，不接 UI。
+
+3. 阶段 3：
+   完善 runDailyRollover，并加入手动测试数据或最小测试。
+
+暂不执行：
+1. 桌面任务 UI。
+2. 胶囊浮窗。
+3. 本地存储落地。
+4. 托盘和快捷键。
+5. 网站角色大改。
