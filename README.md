@@ -2,6 +2,8 @@
 
 Focus Lab 是一个面向学生、设计师、写作者和深度工作者的专注力训练网站。它不是医疗工具，也不是脑力游戏百科，而是把少量高频、容易坚持的训练做成可操作、可记录的本地 Web 工具，用于专注热身、自律启动、分心记录和注意力反馈。
 
+[在线训练启动器](https://focus-lab-cus.pages.dev/launcher) · Cloudflare Pages 自动部署 GitHub `main` 分支。
+
 ## 技术栈
 
 - React

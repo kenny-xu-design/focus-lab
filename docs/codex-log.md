@@ -48,3 +48,12 @@ This file stores concise summaries of Codex work for this project.
 - 用户明确要求提交 GitHub 并检查 Cloudflare。只选择本轮 Web 训练、拓展方法、移动排版、PWA、配套文档和测试；未包含工作区原有桌面番茄钟、主题及相关全局 CSS 的未完成改动。
 - 将暂存区导出到项目内忽略目录 `.cache/release-validation` 验证，未创建 worktree、切换分支或移动原项目。该待发布版本独立执行 `npm run build` 与全部 14 项测试通过。
 - GitHub Actions 的 Build 工作流补充训练和 PWA 产物测试，确保远端对实际提交版本执行同样检查。
+
+### GitHub 与 Cloudflare 发布验证
+
+- 代码提交 `11e111dfff16357e2574e6d51dd91fa449d2c79c` 已推送现有 `main`。沿用原远端（GitHub 自动重定向到 `kenny-xu-design/focus-lab`），未改用户远端配置。
+- [GitHub Actions Build](https://github.com/kenny-xu-design/focus-lab/actions/runs/39133770779) 已成功，包含构建和 14 项训练/PWA 测试。
+- Cloudflare Pages 对该 SHA 返回 `Deployed successfully`，部署 ID `885de352-402d-4f23-98a2-de67b5482a95`；[部署预览](https://885de352.focus-lab-cus.pages.dev) 与[正式启动器](https://focus-lab-cus.pages.dev/launcher)已可访问。
+- 通过 HTTPS 逐个请求正式站点的 HTML、JS、CSS、manifest、Service Worker 与全部图标，共 10 个文件均为 200，SHA-256 与独立待发布构建完全一致；`/launcher`、`/learn/loci`、`/training/number-path-memory`、`/records` 四条 SPA 深链接均为 200 且引用同一新脚本。线上缓存版本为 `focus-lab-pwa-v4-4105df2ba0ab`。
+- 内置浏览器实测正式 `/launcher` 渲染六个核心训练入口和安装按钮。实际手机主屏幕安装与操作系统独立窗口仍需真机验证；云端用户数据同步仍未启用。
+- 工作区原有桌面番茄钟和主题改动保持未提交。未创建 worktree、未切换分支、未强推或修改版本号。
