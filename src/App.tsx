@@ -10,6 +10,7 @@ import MethodsPage from './pages/MethodsPage'
 import PopupPage from './pages/PopupPage'
 import RecordsPage from './pages/RecordsPage'
 import TrainingPage from './pages/TrainingPage'
+import LearningExtensionPage from './pages/LearningExtensionPage'
 
 function isTauriRuntime() {
   return typeof window !== 'undefined' && ('__TAURI__' in window || '__TAURI_INTERNALS__' in window)
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/launcher" element={<LauncherPage />} />
         <Route path="/methods" element={<MethodsPage />} />
         <Route path="/methods/:id" element={<MethodDetailPage />} />
+        <Route path="/learn/:id" element={<LearningExtensionPage />} />
         <Route path="/training/:id" element={<TrainingPage />} />
         <Route path="/games" element={<GamesPage />} />
         <Route path="/games/:id" element={<GamePlayPage />} />

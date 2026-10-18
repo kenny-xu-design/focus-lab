@@ -1,8 +1,9 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { GameRecord, ImplementationPlan, NumberLayoutSnapshot, TrainingRecord } from '../types/training'
+import { migrateTrainingArchive, newLocalParticipant, type TrainingArchive } from '../utils/trainingPersistence'
 
-type TrainingStore = {
+type TrainingStore = TrainingArchive & {
   records: TrainingRecord[]
   gameRecords: GameRecord[]
   plans: ImplementationPlan[]
@@ -14,6 +15,7 @@ type TrainingStore = {
   deleteLayoutSnapshot: (id: string) => void
   deletePlan: (id: string) => void
   clearRecords: () => void
+  setNickname: (nickname: string) => void
 }
 
 export const useTrainingStore = create<TrainingStore>()(
@@ -23,8 +25,11 @@ export const useTrainingStore = create<TrainingStore>()(
       gameRecords: [],
       plans: [],
       layoutSnapshots: [],
-      addRecord: (record) => set((state) => ({ records: [record, ...state.records] })),
-      addGameRecord: (record) => set((state) => ({ gameRecords: [record, ...state.gameRecords] })),
+      participant: newLocalParticipant(),
+      installationId: crypto.randomUUID(),
+      setNickname: (nickname) => set((state) => ({ participant: { ...state.participant, nickname: nickname.trim().slice(0, 40) || '我的练习档案' } })),
+      addRecord: (record) => set((state) => ({ records: [{ ...record, participantId: state.participant.id, installationId: state.installationId }, ...state.records] })),
+      addGameRecord: (record) => set((state) => ({ gameRecords: [{ ...record, participantId: state.participant.id, installationId: state.installationId }, ...state.gameRecords] })),
       addPlan: (plan) => set((state) => ({ plans: [plan, ...state.plans] })),
       addLayoutSnapshot: (snapshot) =>
         set((state) => ({ layoutSnapshots: [snapshot, ...state.layoutSnapshots].slice(0, 30) })),
@@ -35,16 +40,8 @@ export const useTrainingStore = create<TrainingStore>()(
     }),
     {
       name: 'focus-lab-training-records',
-      version: 2,
-      migrate: (persisted) => {
-        const state = persisted as Partial<TrainingStore>
-        return {
-          records: state.records ?? [],
-          gameRecords: state.gameRecords ?? [],
-          plans: state.plans ?? [],
-          layoutSnapshots: state.layoutSnapshots ?? [],
-        } as TrainingStore
-      },
+      version: 3,
+      migrate: migrateTrainingArchive,
     },
   ),
 )

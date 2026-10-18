@@ -1,6 +1,7 @@
 import { RotateCcw, Trash2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import RecordSummary from '../components/RecordSummary'
+import TrainingProgress from '../components/TrainingProgress'
 import { useTrainingStore } from '../store/useTrainingStore'
 import type { TrainingRecord } from '../types/training'
 import { formatDateTime, formatDuration } from '../utils/date'
@@ -43,8 +44,10 @@ export default function RecordsPage() {
       <section className="page-header records-header">
         <span className="eyebrow">训练记录</span>
         <h1>观察专注训练和注意力反馈</h1>
-        <p>记录保存在当前浏览器的 localStorage 中。数字路径记忆会保留“开始挑战”时的数字布局，之后可以用同一布局回退训练。</p>
+        <p>保留训练、小游戏和数字布局记录。基础搜索、进阶记忆以及不同方格尺寸分别比较，不将不同任务的成绩混成总分。</p>
       </section>
+
+      <TrainingProgress />
 
       {!hasRecords ? (
         <section className="glass-card empty-state">
@@ -68,7 +71,7 @@ export default function RecordsPage() {
         <h2>数字布局记录</h2>
         {layoutSnapshots.length === 0 ? (
           <div className="glass-card empty-state">
-            <p>暂无数字布局记录。进入 25 数字路径记忆并点击“开始挑战”后，会保存当时的 5×5 数字布局。</p>
+            <p>暂无数字布局记录。开始搜索或翻盖挑战时，会保存当时的 4×4 或 5×5 布局。</p>
           </div>
         ) : (
           <div className="record-list">
@@ -79,7 +82,7 @@ export default function RecordsPage() {
                   <span>{formatDateTime(snapshot.createdAt)}</span>
                 </div>
                 <div className="layout-record-body">
-                  <div className="layout-preview" aria-label={`${snapshot.label} 数字布局`}>
+                  <div className="layout-preview" style={{ gridTemplateColumns: `repeat(${Math.sqrt(snapshot.numbers.length)}, minmax(0, 1fr))` }} aria-label={`${snapshot.label} 数字布局`}>
                     {snapshot.numbers.map((number) => (
                       <span key={`${snapshot.id}-${number}`}>{number}</span>
                     ))}
@@ -101,7 +104,7 @@ export default function RecordsPage() {
       </section>
 
       <section className="record-section">
-        <h2>核心训练记录</h2>
+        <h2>训练与实践记录</h2>
         {records.length === 0 ? (
           <div className="glass-card empty-state">
             <p>暂无核心训练记录。</p>

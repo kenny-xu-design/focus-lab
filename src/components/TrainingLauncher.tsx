@@ -34,7 +34,7 @@ export default function TrainingLauncher() {
   const todayCount = records.filter((record) => dateKey(record.date) === dateKey(new Date())).length
 
   return (
-    <section className="launcher-window glass-card" aria-label="Focus Lab 桌面启动器">
+    <section className="launcher-window glass-card" aria-label="Focus Lab 训练启动器">
       <div className="launcher-titlebar">
         <div className="window-dots" aria-hidden="true">
           <span />
@@ -47,7 +47,7 @@ export default function TrainingLauncher() {
 
       <div className="launcher-hero">
         <div>
-          <span className="eyebrow">桌面启动小程序</span>
+          <span className="eyebrow">手机与电脑通用</span>
           <h2>选择一个训练，直接进入状态</h2>
           <p>覆盖 6 个核心训练：空间记忆、专注计时、任务启动、分心记录、呼吸稳定和执行计划。</p>
         </div>

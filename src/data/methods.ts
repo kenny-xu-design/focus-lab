@@ -18,15 +18,15 @@ export const difficultyLabels: Record<Difficulty, string> = {
 export const methods: TrainingMethod[] = [
   {
     id: 'number-path-memory',
-    name: '25数字路径记忆',
+    name: '数字搜索与顺序记忆',
     category: 'memory',
     duration: '3-8 分钟',
     difficulty: 'medium',
     goal: '训练视觉搜索、空间记忆、顺序回忆和注意稳定。',
     scene: '适合阅读、设计检查、资料检索前做短时热身。',
-    description: '每次只记忆 5 个数字的位置，翻盖后按顺序点击，观察空间记忆和错误模式。',
+    description: '基础级是数字全程可见的舒尔特搜索；进阶级保留原来的分组翻盖和完整路径记忆。两级均可选 4×4 或 5×5。',
     targetUsers: ['容易看漏信息的人', '需要做视觉校对的人', '想在任务前快速热身的人'],
-    steps: ['观察当前 5 个高亮数字的位置。', '点击开始翻盖，隐藏所有数字。', '按提示依次点击目标数字原本所在的位置。', '连续错误 2 次后回到本组记忆阶段。'],
+    steps: ['选择基础搜索或进阶记忆，再选择 4×4 或 5×5。', '基础级开始后按顺序点击全程可见的数字。', '进阶级观察后翻盖，按顺序点击目标原本的位置。', '分组模式连续错误 2 次后回到本组记忆阶段。'],
     advancedTips: ['优先降低错误次数，再逐步缩短记忆时间。', '完成后回看哪一组最容易丢失位置。'],
     notices: ['不要一次强迫自己记忆 25 个数字。', '眼睛疲劳或焦躁明显时暂停训练。'],
     toolType: 'numberPathMemory',

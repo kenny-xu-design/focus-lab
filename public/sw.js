@@ -1,55 +1,46 @@
-const CACHE_NAME = 'focus-lab-pwa-v2'
-const APP_SHELL = ['/', '/popup', '/launcher', '/methods', '/records', '/manifest.webmanifest', '/icons/focus-lab-icon.svg']
+// scripts/pwa-build.js fills these values from the production build.
+const CACHE_NAME = 'focus-lab-pwa-v4-dev'
+const PRECACHE_ASSETS = []
+const staticPaths = new Set(PRECACHE_ASSETS)
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches
-      .open(CACHE_NAME)
-      .then((cache) => cache.addAll(APP_SHELL))
-      .then(() => self.skipWaiting()),
-  )
+  // Keep the open session on its current bundle until all old windows close.
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS)))
 })
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches
-      .keys()
-      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
-      .then(() => self.clients.claim()),
-  )
+  event.waitUntil((async () => {
+    const keys = await caches.keys()
+    await Promise.all(keys.filter((key) => key.startsWith('focus-lab-pwa-') && key !== CACHE_NAME).map((key) => caches.delete(key)))
+    await self.clients.claim()
+  })())
 })
 
 self.addEventListener('fetch', (event) => {
   const request = event.request
-
-  if (request.method !== 'GET') return
+  const url = new URL(request.url)
+  if (request.method !== 'GET' || url.origin !== self.location.origin) return
+  if (url.pathname === '/api' || url.pathname.startsWith('/api/') || request.headers.has('authorization')) return
 
   if (request.mode === 'navigate') {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          const copy = response.clone()
-          caches.open(CACHE_NAME).then((cache) => cache.put('/', copy))
-          return response
-        })
-        .catch(() => caches.match(request).then((cached) => cached || caches.match('/'))),
-    )
+    event.respondWith((async () => {
+      const cache = await caches.open(CACHE_NAME)
+      // Serve HTML from the same build as the precached bundles. Check the
+      // network first so an online error (such as a 404) is not hidden.
+      try {
+        const response = await fetch(request)
+        if (response.ok && response.headers.get('content-type')?.includes('text/html')) return (await cache.match('/')) || response
+        return response
+      } catch {
+        return (await cache.match('/')) || new Response('请联网后重新打开 Focus Lab。', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
+      }
+    })())
     return
   }
 
-  event.respondWith(
-    caches.match(request).then((cached) => {
-      const network = fetch(request)
-        .then((response) => {
-          if (response.ok) {
-            const copy = response.clone()
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy))
-          }
-          return response
-        })
-        .catch(() => cached)
-
-      return cached || network
-    }),
-  )
+  if (!staticPaths.has(url.pathname)) return
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE_NAME)
+    return (await cache.match(url.pathname)) || fetch(request)
+  })())
 })

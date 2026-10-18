@@ -25,3 +25,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Verify training and PWA artifacts
+        run: node --test tests/number-training.test.cjs tests/recall-practice.test.cjs tests/pwa.test.cjs

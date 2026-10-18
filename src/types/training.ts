@@ -57,6 +57,8 @@ export type AttentionGame = {
 }
 
 export type TrainingRecord = {
+  participantId?: string
+  installationId?: string
   id: string
   type: 'training'
   methodId: string
@@ -74,6 +76,8 @@ export type TrainingRecord = {
 }
 
 export type GameRecord = {
+  participantId?: string
+  installationId?: string
   id: string
   type: 'game'
   gameId: string
@@ -100,8 +104,14 @@ export type NumberLayoutSnapshot = {
   id: string
   methodId: string
   methodName: string
-  mode: 'grouped' | 'fullPath'
+  mode: 'search' | 'grouped' | 'fullPath'
   label: string
   numbers: number[]
+  createdAt: string
+}
+
+export type LocalParticipant = {
+  id: string
+  nickname: string
   createdAt: string
 }

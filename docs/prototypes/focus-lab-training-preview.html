@@ -1,0 +1,93 @@
+<div id="fl-upgrade-preview" lang="zh-CN">
+  <style>
+    #fl-upgrade-preview{--fl-bg:light-dark(#f6eddd,#211e19);--fl-paper:light-dark(#fffaf0,#2e2922);--fl-ink:light-dark(#2b241c,#f7eddf);--fl-muted:light-dark(#756a5f,#c6b8a7);--fl-line:light-dark(#d9cbb8,#574b3e);--fl-accent:#d95f22;--fl-mark:light-dark(#fbe2cc,#54341f);font:15px/1.6 'Microsoft YaHei',system-ui,sans-serif;color:var(--fl-ink)}
+    #fl-upgrade-preview *{box-sizing:border-box}
+    #fl-upgrade-preview .fl-shell{background:var(--fl-bg);border-radius:8px;overflow:hidden}
+    #fl-upgrade-preview .fl-top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:20px 28px;border-bottom:1px solid var(--fl-line);padding-right:105px}
+    #fl-upgrade-preview .fl-brand{font:500 23px Georgia,serif;letter-spacing:-.5px}
+    #fl-upgrade-preview .fl-sub{color:var(--fl-muted);font-size:12px;display:block}
+    #fl-upgrade-preview .fl-nav{display:flex;flex-wrap:wrap;gap:8px}
+    #fl-upgrade-preview button{font:inherit;color:inherit;background:var(--fl-paper);border:1px solid var(--fl-line);border-radius:5px;padding:9px 13px;min-height:44px}
+    #fl-upgrade-preview button:disabled{opacity:.55}
+    #fl-upgrade-preview button[aria-pressed=true]{background:var(--fl-mark);border-color:var(--fl-accent)}
+    #fl-upgrade-preview .fl-main{padding:28px;max-width:1024px;margin:auto}
+    #fl-upgrade-preview h2{font-size:29px;font-weight:500;margin:0 0 8px}
+    #fl-upgrade-preview h3{font-size:18px;font-weight:500;margin:0 0 8px}
+    #fl-upgrade-preview p{margin:0 0 12px}
+    #fl-upgrade-preview .fl-muted{color:var(--fl-muted)}
+    #fl-upgrade-preview .fl-kicker{color:var(--fl-accent);font-size:12px;letter-spacing:1px;margin-bottom:8px}
+    #fl-upgrade-preview .fl-layout{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:22px;margin-top:24px}
+    #fl-upgrade-preview .fl-panel{background:var(--fl-paper);padding:22px;border:1px solid var(--fl-line);border-radius:6px}
+    #fl-upgrade-preview .fl-modules{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+    #fl-upgrade-preview .fl-status{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px;font-variant-numeric:tabular-nums}
+    #fl-upgrade-preview .fl-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;max-width:370px;margin:18px auto}
+    #fl-upgrade-preview .fl-grid button{font-size:21px;aspect-ratio:1;padding:0;border-radius:3px;min-width:0}
+    #fl-upgrade-preview .fl-grid button[data-done=true]{color:var(--fl-muted);background:var(--fl-bg)}
+    #fl-upgrade-preview .fl-controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:16px 0 8px}
+    #fl-upgrade-preview .fl-primary{background:var(--fl-accent);color:#fff;border-color:var(--fl-accent)}
+    #fl-upgrade-preview .fl-word{text-align:center;font-size:76px;font-weight:500;padding:27px 0;min-height:178px}
+    #fl-upgrade-preview .fl-note{border-top:1px solid var(--fl-line);padding-top:16px;margin-top:18px;font-size:13px;color:var(--fl-muted)}
+    #fl-upgrade-preview .fl-stage{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--fl-line)}
+    #fl-upgrade-preview .fl-step{color:var(--fl-accent);font-variant-numeric:tabular-nums}
+    #fl-upgrade-preview .fl-next{margin-top:20px}
+    #fl-upgrade-preview .fl-result{padding:14px 0;min-height:55px}
+    #fl-upgrade-preview label{display:grid;gap:5px;margin-bottom:14px}
+    #fl-upgrade-preview input{font:inherit;color:inherit;background:var(--fl-bg);border:1px solid var(--fl-line);border-radius:4px;padding:10px;width:100%;min-width:0}
+    #fl-upgrade-preview [hidden]{display:none!important}
+    #fl-upgrade-preview .fl-tag{font-size:12px;color:var(--fl-accent)}
+    #fl-upgrade-preview .fl-empty{padding:24px 0;border-top:1px solid var(--fl-line)}
+    @media(max-width:640px){#fl-upgrade-preview .fl-layout{grid-template-columns:1fr}#fl-upgrade-preview .fl-main{padding:18px}#fl-upgrade-preview .fl-top{padding:16px;padding-right:96px}#fl-upgrade-preview .fl-panel{padding:15px}#fl-upgrade-preview h2{font-size:24px}#fl-upgrade-preview .fl-grid{gap:5px}#fl-upgrade-preview .fl-grid button{font-size:18px}}
+  </style>
+  <div class="fl-shell">
+    <header class="fl-top"><div><span class="fl-brand">Focus Lab</span><span class="fl-sub">专注力训练工具箱 · 升级方案预览</span></div><nav class="fl-nav" aria-label="方案页面"><button type="button" data-view="training" aria-pressed="true">今日跟练</button><button type="button" data-view="task" aria-pressed="false">回到真实任务</button><button type="button" data-view="records" aria-pressed="false">本轮记录</button></nav></header>
+    <main class="fl-main">
+      <section data-screen="training">
+        <div class="fl-kicker">先体验，再理解</div><h2>把注意力，带回眼前这一件事。</h2><p class="fl-muted">找数、辨色，再回到你今天真正要完成的任务。</p>
+        <div class="fl-layout"><div class="fl-panel">
+          <div class="fl-modules" aria-label="训练项目"><button type="button" data-mode="schulte" aria-pressed="true">舒尔特搜索</button><button type="button" data-mode="stroop" aria-pressed="false">色词冲突</button><button type="button" disabled>序列记忆 · 规划中</button></div>
+          <h3 data-title>按顺序，找到 1 到 25</h3><p class="fl-muted" data-rule>数字一直可见，按顺序点击。先求准确，再观察用时。</p>
+          <div class="fl-status"><span data-progress>下一目标：1</span><span data-timer>尚未开始</span><span data-errors>错误：0</span></div>
+          <div data-grid class="fl-grid" aria-label="舒尔特数字方格"></div>
+          <div data-stroop hidden><div data-word class="fl-word" aria-label="颜色刺激">红</div><div class="fl-controls" data-colors><button type="button" data-color="red">红</button><button type="button" data-color="blue">蓝</button><button type="button" data-color="green">绿</button><button type="button" data-color="orange">橙</button></div></div>
+          <div class="fl-controls"><button type="button" class="fl-primary" data-start>开始本轮</button><button type="button" data-shuffle>同难度换题</button></div>
+          <div class="fl-result" data-result aria-live="polite">准备好后开始。原型不保存到你的训练历史。</div>
+          <div class="fl-note">本轮表现用于观察这项任务。它不能诊断注意力问题，也不能单独证明学习效率提升。</div>
+        </div><aside>
+          <div class="fl-kicker">今日跟练 · 计划约 3–5 分钟</div>
+          <div class="fl-stage"><span class="fl-step">01</span><div>舒尔特搜索<span class="fl-sub">视觉搜索 · 全程可见</span></div></div>
+          <div class="fl-stage"><span class="fl-step">02</span><div>色词冲突<span class="fl-sub">忽略字义 · 回答颜色</span></div></div>
+          <div class="fl-stage"><span class="fl-step">03</span><div>序列记忆<span class="fl-sub">先后顺序 · 后续实现</span></div></div>
+          <div class="fl-next"><h3>练完，然后做什么？</h3><p class="fl-muted">带着一个清楚的小目标，回到阅读、学习或设计。</p><button type="button" data-go-task>选择我的真实任务</button></div>
+        </aside></div>
+      </section>
+      <section data-screen="task" hidden><div class="fl-kicker">从练习到行动</div><h2>接下来，只做一件事。</h2><div class="fl-layout"><div class="fl-panel"><label>这次要完成的小目标<input data-task placeholder="例如：读完两页，写出三个要点" maxlength="160"></label><p class="fl-muted">正式版将连接现有番茄钟与分心记录。这里仅预览任务衔接。</p><button type="button" class="fl-primary" data-save-task>记下本轮目标</button><p data-task-message class="fl-result" aria-live="polite"></p></div><aside><h3>结束后回顾</h3><p>目标推进了多少？</p><p>中途切换了几次任务？</p><p>哪些信息真正记住了？</p><p class="fl-muted">这些结果与小游戏成绩分开记录。</p></aside></div></section>
+      <section data-screen="records" hidden><div class="fl-kicker">仅当前预览会话</div><h2>观察表现，不给自己贴标签。</h2><p class="fl-muted">没有综合脑力分数；不同训练与真实任务分别呈现。</p><div data-records class="fl-empty" aria-live="polite">完成一轮后，这里会出现你的本轮记录。</div><div class="fl-note">此预览使用临时内存，刷新即清空，不读取或覆盖原网站 localStorage。</div></section>
+    </main>
+  </div>
+  <script>
+  (() => {
+    const root=document.getElementById('fl-upgrade-preview');
+    const q=s=>root.querySelector(s);const qa=s=>Array.from(root.querySelectorAll(s));
+    const palette={red:'#c83c34',blue:'#2875cc',green:'#278448',orange:'#c45e10'};
+    const names={red:'红',blue:'蓝',green:'绿',orange:'橙'};
+    let mode='schulte',running=false,started=0,next=1,errors=0,index=0,trial=null,trialStarted=0,results=[],trialResults=[],clock=null;
+    const mix=arr=>{const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+    const view=name=>{qa('[data-screen]').forEach(el=>el.hidden=el.dataset.screen!==name);qa('[data-view]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.view===name)));};
+    function record(text){results.unshift(text);const area=q('[data-records]');area.replaceChildren();results.forEach(text=>{const p=document.createElement('p');p.textContent=text;area.append(p);});}
+    function elapsed(){return((performance.now()-started)/1000).toFixed(1);}
+    function stop(){running=false;if(clock!==null)clearInterval(clock);clock=null;}
+    function reset(){stop();next=1;errors=0;index=0;trialResults=[];q('[data-errors]').textContent='错误：0';q('[data-timer]').textContent='尚未开始';q('[data-result]').textContent='准备好后开始。原型不保存到你的训练历史。';q('[data-start]').disabled=false;q('[data-start]').textContent='开始本轮';q('[data-progress]').textContent=mode==='schulte'?'下一目标：1':'题目：0 / 8';q('[data-grid]').hidden=mode!=='schulte';q('[data-stroop]').hidden=mode!=='stroop';q('[data-title]').textContent=mode==='schulte'?'按顺序，找到 1 到 25':'忽略字义，只回答字体颜色';q('[data-rule]').textContent=mode==='schulte'?'数字一直可见，按顺序点击。先求准确，再观察用时。':'8 题交互样例。此轮试次数不足，不估算稳定的干扰代价。';
+      q('[data-grid]').replaceChildren();mix(Array.from({length:25},(_,i)=>i+1)).forEach(n=>{const b=document.createElement('button');b.type='button';b.textContent=n;b.setAttribute('aria-label','数字 '+n);b.addEventListener('click',()=>{if(!running)return;if(n!==next){errors++;q('[data-errors]').textContent='错误：'+errors;return;}b.dataset.done='true';b.disabled=true;next++;q('[data-progress]').textContent=next<=25?'下一目标：'+next:'已完成：25 / 25';if(next===26){const time=elapsed();stop();const text='舒尔特 5×5：'+time+' 秒，错误 '+errors+' 次。';q('[data-result]').textContent=text;q('[data-start]').disabled=false;q('[data-start]').textContent='再练一轮';record(text);}});q('[data-grid]').append(b);});q('[data-word]').textContent='红';q('[data-word]').style.color=palette.blue;qa('[data-color]').forEach(b=>b.disabled=true);
+    }
+    function newTrial(){const keys=Object.keys(palette),color=keys[index%4],word=index%2===0?color:keys[(index+1)%4];trial={color,word};q('[data-word]').textContent=names[word];q('[data-word]').style.color=palette[color];q('[data-progress]').textContent='题目：'+(index+1)+' / 8';trialStarted=performance.now();}
+    q('[data-start]').addEventListener('click',()=>{reset();running=true;started=performance.now();q('[data-start]').disabled=true;q('[data-result]').textContent='本轮进行中。';clock=setInterval(()=>q('[data-timer]').textContent=elapsed()+' 秒',100);if(mode==='stroop'){qa('[data-color]').forEach(b=>b.disabled=false);newTrial();}});
+    qa('[data-color]').forEach(b=>b.addEventListener('click',()=>{if(!running||mode!=='stroop')return;const correct=b.dataset.color===trial.color;trialResults.push({correct,ms:performance.now()-trialStarted});if(!correct)errors++;q('[data-errors]').textContent='错误：'+errors;index++;if(index===8){stop();qa('[data-color]').forEach(el=>el.disabled=true);q('[data-progress]').textContent='已完成：8 / 8';const correctResults=trialResults.filter(t=>t.correct);const avg=correctResults.length?Math.round(correctResults.reduce((s,t)=>s+t.ms,0)/correctResults.length):null;const text='色词冲突样例：正确 '+(8-errors)+'/8，正确题平均反应时 '+(avg===null?'无有效试次':avg+' ms')+'。';q('[data-result]').textContent=text;q('[data-start]').disabled=false;q('[data-start]').textContent='再练一轮';record(text);}else newTrial();}));
+    q('[data-shuffle]').addEventListener('click',reset);qa('[data-mode]').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.mode;qa('[data-mode]').forEach(el=>el.setAttribute('aria-pressed',String(el===b)));reset();}));
+    qa('[data-view]').forEach(b=>b.addEventListener('click',()=>{if(running){reset();q('[data-result]').textContent='离开训练，本轮已取消；重新开始可再次计时。';}view(b.dataset.view);}));q('[data-go-task]').addEventListener('click',()=>{if(running)reset();view('task');});
+    q('[data-save-task]').addEventListener('click',()=>{const text=q('[data-task]').value.trim();q('[data-task-message]').textContent=text?'已记下目标：'+text:'先写下一个具体的小目标。';if(text)record('真实任务目标：'+text+'（仅记下目标，尚未完成）');});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden&&running){reset();q('[data-result]').textContent='页面切到后台，本轮已取消；回来后重新开始。';}});
+    reset();
+    if(typeof Tweak!=='undefined'){const state={accent:'#d95f22'};const tweak=new Tweak({container:root,onChange:()=>root.style.setProperty('--fl-accent',state.accent)});tweak.addColorPicker(state,'accent',{label:'强调色',reference:'--fl-accent'});}
+  })();
+  </script>
+</div>

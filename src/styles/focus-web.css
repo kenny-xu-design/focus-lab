@@ -1,0 +1,158 @@
+/* Calm teal is a legibility choice, not a claim of cognitive enhancement.
+   Scope the Web palette so existing Tauri productivity themes remain intact. */
+html:has(.focus-web), body:has(.focus-web), body:has(.focus-web) #root { min-width: 0; }
+body:has(.focus-web) { background: #f1f5f4; color: #173436; }
+.focus-web {
+  --bg: #f1f5f4;
+  --paper: #ffffff;
+  --paper-strong: #ffffff;
+  --paper-soft: #f8faf9;
+  --ink: #173436;
+  --muted: #4f6564;
+  --rule: #d6e2df;
+  --rule-strong: #93aaa5;
+  --orange: #17766b;
+  --orange-2: #125f57;
+  --danger: #a13232;
+  --shadow: 0 10px 28px rgb(23 52 54 / 7%);
+  --hand-font: 'Microsoft YaHei', system-ui, sans-serif;
+  font-family: 'Microsoft YaHei', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+.focus-web .navbar { background: rgb(248 250 249 / 97%); border-bottom: 1px solid var(--rule); box-shadow: none; }
+.focus-web .brand-mark { background: #deefea; border: 1px solid #93aaa5; color: #125f57; box-shadow: none; }
+.focus-web .nav-links a.active, .focus-web .nav-links a:hover, .focus-web .tab.active, .focus-web .chip.active { background: #deefea; color: #173436; border-color: #17766b; box-shadow: none; }
+.focus-web .button { color: #ffffff; background: #125f57; border: 1px solid #125f57; box-shadow: none; font-weight: 600; }
+.focus-web .button.ghost, .focus-web .install-button, .focus-web .tab, .focus-web .chip { color: #125f57; background: #ffffff; border: 1px solid #93aaa5; box-shadow: none; }
+.focus-web .button.danger { background: #a13232; color: #ffffff; border-color: #a13232; }
+.focus-web .button:hover, .focus-web .tool-entry:hover, .focus-web .method-card:hover, .focus-web .category-card:hover { transform: none; box-shadow: var(--shadow); }
+.focus-web .glass-card, .focus-web .path-memory-panel, .focus-web .launcher-window, .focus-web .launcher-card, .focus-web .popup-training-item { background: var(--paper); border: 1px solid var(--rule); box-shadow: var(--shadow); }
+.focus-web .card-kicker span, .focus-web .launcher-icon, .focus-web .completed-pill { background: #deefea; color: #125f57; }
+.focus-web .focus-ring { background: radial-gradient(circle, #fff 53%, #deefea 54%, #deefea 68%, #fff 69%); border-color: #93aaa5; box-shadow: none; }
+.focus-web .mini-metrics span { background: #deefea; color: #173436; border-color: #93aaa5; }
+.focus-web .number-cell { color: #173436; background: #ffffff; border-color: #93aaa5; font-weight: 600; min-height: 44px; touch-action: manipulation; }
+.focus-web .number-cell.current { background: #deefea; border-color: #17766b; box-shadow: inset 0 0 0 1px #17766b; }
+.focus-web .number-cell.done { background: #edf3f1; color: #4f6564; border-color: #b6c8c3; }
+.focus-web .number-cell.wrong { background: #fbe8e5; border-color: #a13232; }
+.focus-web .schulte-grid .number-cell:disabled { opacity: 1; cursor: default; }
+.focus-web .text-input, .focus-web select, .focus-web textarea { background: #fff; color: #173436; border-color: #93aaa5; }
+.focus-web :focus-visible { outline: 3px solid #125f57; outline-offset: 3px; }
+.focus-web .number-training-controls, .focus-web .schulte-panel, .focus-web .training-progress { padding: clamp(16px, 3vw, 26px); }
+.focus-web .number-training-controls { display: grid; gap: 16px; }
+.focus-web .number-training-controls p, .focus-web .schulte-panel p { margin: 0; }
+.focus-web .schulte-panel { display: grid; gap: 20px; max-width: 650px; width: 100%; justify-self: center; }
+.focus-web .schulte-panel > .button { justify-self: center; }
+.focus-web .training-evidence-note { max-width: 850px; margin: 0 auto; }
+.focus-web .training-path-intro { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: 20px; padding: 24px; }
+.focus-web .training-path-intro > div { flex: 1 1 300px; }
+.focus-web .training-progress { display: grid; gap: 16px; }
+.focus-web .training-progress p { margin: 0; }
+.focus-web .profile-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.focus-web .profile-controls input { flex: 1 1 180px; width: auto; min-width: 0; }
+.focus-web .progress-filters { display: flex; flex-wrap: wrap; gap: 16px; }
+.focus-web .progress-filters label { display: grid; gap: 6px; flex: 1 1 180px; }
+.focus-web .progress-chart { display: block; width: 100%; height: auto; color: #125f57; }
+.focus-web .curve-range { display: flex; justify-content: space-between; font-variant-numeric: tabular-nums; }
+.focus-web .progress-table { overflow-x: auto; }
+.focus-web .progress-table table { width: 100%; text-align: left; border-collapse: collapse; }
+.focus-web .progress-table th, .focus-web .progress-table td { padding: 10px 6px; border-bottom: 1px solid var(--rule); }
+.focus-web .progress-table caption { text-align: left; color: var(--muted); }
+.focus-web .pwa-install-dialog { width: min(580px, calc(100% - 28px)); max-height: calc(100dvh - 28px); padding: 22px; border: 1px solid var(--rule-strong); border-radius: 10px; background: var(--paper); color: var(--ink); overflow-y: auto; }
+.focus-web .pwa-install-dialog[open] { display: grid; gap: 14px; }
+.focus-web .pwa-install-dialog::backdrop { background: rgb(23 52 54 / 45%); }
+.focus-web .pwa-install-dialog p, .focus-web .pwa-install-dialog h2 { margin: 0; }
+.focus-web .pwa-dialog-heading { display: flex; gap: 12px; align-items: center; justify-content: space-between; }
+.focus-web .pwa-dialog-heading .button { width: 44px; min-height: 44px; flex: 0 0 44px; padding: 8px; }
+.focus-web .pwa-platform-list { display: grid; gap: 14px; list-style: none; padding: 0; margin: 0; }
+.focus-web .pwa-platform-list li { display: grid; gap: 4px; padding: 12px; background: var(--paper-soft); border: 1px solid var(--rule); border-radius: 6px; }
+.focus-web .pwa-copy-status:empty { display: none; }
+@media (display-mode: standalone) {
+  .focus-web .navbar { padding-top: max(12px, env(safe-area-inset-top)); padding-left: max(12px, env(safe-area-inset-left)); padding-right: max(12px, env(safe-area-inset-right)); }
+  .focus-web .page-shell { padding-bottom: max(36px, env(safe-area-inset-bottom)); }
+}
+@media (max-width: 600px) {
+  .focus-web .path-memory-layout { grid-template-columns: minmax(0, 1fr); }
+  .focus-web .number-training-controls .tab { flex: 1 1 150px; }
+  .focus-web .number-grid { gap: 5px; }
+  .focus-web .text-input { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .focus-web *, .focus-web *::before, .focus-web *::after { animation: none !important; transition: none !important; } }
+
+.focus-web .extension-card { display: grid; align-content: start; gap: 12px; padding: 22px; }
+.focus-web .extension-card h3, .focus-web .extension-card p { margin: 0; }
+.focus-web .extension-card .button { justify-self: start; }
+.focus-web .extension-guide, .focus-web .recall-practice { display: grid; gap: 16px; padding: clamp(16px, 3vw, 28px); }
+.focus-web .extension-guide ol { padding-left: 24px; display: grid; gap: 14px; margin: 0 0 8px; }
+.focus-web .extension-guide .text-link { max-width: 100%; overflow-wrap: anywhere; }
+.focus-web .extension-guide .button, .focus-web .recall-practice > .button { justify-self: start; }
+.focus-web .recall-practice textarea { font-size: 16px; line-height: 1.6; }
+.focus-web .recall-practice small { color: var(--muted); }
+.focus-web .recall-material { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; padding-left: 24px; }
+.focus-web #practice, .focus-web #learning-extensions { scroll-margin-top: 100px; }
+
+/* Phone layouts prioritize the task, readable labels and comfortable touch targets. */
+@media (max-width: 600px) {
+  .focus-web .navbar { position: static; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 12px; }
+  .focus-web .brand { min-width: 0; gap: 8px; }
+  .focus-web .brand-mark { width: 34px; height: 34px; }
+  .focus-web .brand small { display: none; }
+  .focus-web .nav-cluster { display: contents; }
+  .focus-web .nav-links { grid-column: 1 / -1; grid-row: 2; min-width: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 3px; }
+  .focus-web .nav-links a { min-width: 0; min-height: 44px; padding: 0 6px; justify-content: center; white-space: nowrap; font-size: 14px; }
+  .focus-web .nav-cluster > .install-button { grid-column: 2; grid-row: 1; min-height: 44px; font-size: 13px; padding: 0 9px; }
+  .focus-web .page-shell { width: calc(100% - 24px); padding: 22px 0 36px; }
+  .focus-web .page-stack { gap: 24px; }
+  .focus-web h1 { max-width: 100%; font-size: clamp(28px, 8vw, 36px); line-height: 1.2; overflow-wrap: anywhere; }
+  .focus-web h2 { font-size: 24px; line-height: 1.35; }
+  .focus-web h3 { font-size: 19px; }
+  .focus-web p, .focus-web small, .focus-web a, .focus-web dd { overflow-wrap: anywhere; }
+  .focus-web .hero-section { min-height: 0; gap: 16px; grid-template-columns: 1fr; }
+  .focus-web .hero-copy { padding: 0; }
+  .focus-web .hero-copy .lead { font-size: 19px; }
+  .focus-web .hero-panel { min-height: 0; display: flex; gap: 18px; padding: 16px; }
+  .focus-web .focus-ring { width: 104px; flex: 0 0 104px; padding: 16px 0; align-content: center; }
+  .focus-web .focus-ring span { font-size: 32px; line-height: 1.2; }
+  .focus-web .focus-ring small { margin: 0; font-size: 12px; }
+  .focus-web .mini-metrics { margin: 0; gap: 6px; }
+  .focus-web .mini-metrics span { padding: 6px; font-size: 12px; }
+  .focus-web .hero-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .focus-web .hero-actions .button { min-width: 0; padding: 8px; font-size: 14px; }
+  .focus-web .tool-entry-grid, .focus-web .tool-entry-grid.six-grid, .focus-web .method-grid, .focus-web .detail-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .focus-web .tool-entry, .focus-web .method-card, .focus-web .extension-card, .focus-web .detail-card, .focus-web .record-item, .focus-web .completion-panel { padding: 16px; min-width: 0; }
+  .focus-web .button, .focus-web .button.compact, .focus-web .tab, .focus-web .chip { min-height: 44px; }
+  .focus-web .path-memory-panel { padding: 12px; }
+  .focus-web .number-training-controls { padding: 12px; }
+  .focus-web .number-training-controls .duration-options { gap: 8px; }
+  .focus-web .number-training-controls .chip { flex: 1 1 55px; }
+  .focus-web .number-training-controls .button { width: auto; flex: 2 1 130px; }
+  .focus-web .tool-status { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 12px; }
+  .focus-web .tool-status strong { font-size: 24px; }
+  .focus-web .schulte-panel .tool-status { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 0; }
+  .focus-web .schulte-panel { padding: 12px; gap: 16px; }
+  .focus-web .number-cell { font-size: 21px; min-height: 44px; }
+  .focus-web .centered-tool .tool-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .focus-web .arrow-display { font-size: clamp(28px, 8vw, 42px); letter-spacing: 0; white-space: nowrap; }
+  .focus-web .distraction-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .focus-web .distraction-button { min-height: 86px; padding: 12px; }
+  .focus-web .summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .focus-web .stat-card { padding: 12px 8px; }
+  .focus-web .stat-card strong { font-size: 28px; }
+  .focus-web .stat-card span { font-size: 12px; }
+  .focus-web .bar-chart { gap: 5px; }
+  .focus-web .bar-item { font-size: 12px; }
+  .focus-web .profile-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .focus-web .profile-controls label, .focus-web .profile-controls input { grid-column: 1 / -1; width: 100%; }
+  .focus-web .progress-filters { gap: 12px; }
+  .focus-web .extension-guide, .focus-web .recall-practice { padding: 16px; }
+  .focus-web .extension-guide .text-link { width: auto; }
+  .focus-web .recall-material { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .focus-web .launcher-grid { grid-template-columns: minmax(0, 1fr); }
+  .focus-web .launcher-titlebar { grid-template-columns: minmax(0, 1fr); }
+  .focus-web .launcher-hero { flex-direction: column; align-items: stretch; }
+  .focus-web .popup-shell { padding: 0; }
+  .focus-web .popup-panel { padding: 12px; min-height: 0; }
+  .focus-web .popup-training-item { padding: 10px; gap: 8px; }
+  .focus-web .popup-footer { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .focus-web #practice, .focus-web #learning-extensions { scroll-margin-top: 12px; }
+}

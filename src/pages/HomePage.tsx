@@ -2,6 +2,7 @@ import { ArrowRight, BrainCircuit, Clock3, Gamepad2, ListChecks, MonitorUp, Play
 import { Link } from 'react-router-dom'
 import { games } from '../data/games'
 import { categoryLabels, methods } from '../data/methods'
+import LearningExtensions from '../components/LearningExtensions'
 
 const icons = [Radar, TimerReset, Play, ShieldCheck, Wind, ListChecks]
 
@@ -49,6 +50,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="glass-card training-path-intro" aria-label="数字训练路线">
+        <div><span className="eyebrow">从搜索到记忆</span><h2>先找到，再记住。</h2><p>基础级数字全程可见；进阶级观察后翻盖。4×4 与 5×5 自由选择，原有训练与小游戏继续保留。</p></div>
+        <Link className="button" to="/training/number-path-memory">选择难度<ArrowRight size={18} aria-hidden="true" /></Link>
+      </section>
+
       <section>
         <div className="section-heading">
           <span className="eyebrow">核心训练</span>
@@ -85,6 +91,7 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+      <LearningExtensions />
     </div>
   )
 }
